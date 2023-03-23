@@ -1,4 +1,4 @@
-namespace ValidarIntegracaoAPI
+namespace ValidarIntegracaoAPI.Models
 {
     public class EventosFiscais
     {

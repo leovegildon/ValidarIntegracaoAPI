@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ValidarIntegracaoAPI.Models;
 
 namespace ValidarIntegracaoAPI.Controllers
 {
