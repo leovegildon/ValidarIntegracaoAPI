@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  validarintegracaoapi:
+    image: ${DOCKER_REGISTRY-}validarintegracaoapi
+    build:
+      context: .
+      dockerfile: Dockerfile
