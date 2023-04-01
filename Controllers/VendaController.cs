@@ -43,14 +43,17 @@ namespace IntegracaoApiNetCore6.Controllers
             return venda;
         }
 
+
         [HttpGet]
-        [Route("porUF")]
-        public VendaPorLojaModel VendaPorUF(string UF, string DataInicial, string DataFinal)
+        [Route("porCentroData")]
+        public VendaPorLojaModel VendaPorUF(int Centro, string DataInicial, string DataFinal)
         {
-            protonView.VendaPorLoja(DataInicial, DataFinal);
-            VendaPorLojaModel vendaPorLoja = protonView.listaVendaPorLoja.Where(n => n.Uf == UF)
-                                                .Select(n => n)
-                                                .FirstOrDefault();
+
+
+            protonView.VendaPorLoja(Centro, DataInicial, DataFinal);
+            VendaPorLojaModel vendaPorLoja = protonView.listaVendaPorLoja.Where(n => n.Centro == Centro)
+                                                .Select(n => n).FirstOrDefault();
+                                                
 
 
             return vendaPorLoja;

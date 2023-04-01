@@ -147,7 +147,7 @@ namespace ValidarIntegracaoAPI
         #endregion
 
         #region //VendaPorLoja
-        public void VendaPorLoja(string dataInicial, string dataFinal)
+        public void VendaPorLoja(int centro, string dataInicial, string dataFinal)
         {
             listaVendaPorLoja.Clear();
             string localBanco = "10.11.0.30";
@@ -174,7 +174,8 @@ namespace ValidarIntegracaoAPI
           "join tloc_uf f " +
             "on c.tloc_uf_fk = f.tloc_uf_pk " +
          "WHERE TRUNC(t.data_hora_transacao_uk) between '" + dataInicial + "' and '" + dataFinal + "' " +
-           "and t.tipo in ('N', 'S', 'M') " +
+         "AND s.loja_sap_pk = " + centro + 
+           " and t.tipo in ('N', 'S', 'M') " +
            "and t.cancelada = 'N' " +
            "and s.loja_sap_pk not like '9%' " +
            "and not exists " +
