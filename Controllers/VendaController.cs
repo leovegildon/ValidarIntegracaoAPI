@@ -14,6 +14,7 @@ using FirebirdSql.Data.FirebirdClient;
 using Microsoft.AspNetCore.Mvc;
 using ValidarIntegracaoAPI;
 using ValidarIntegracaoAPI.Models;
+using System.Security.Cryptography.X509Certificates;
 //using System.Web.Http;
 
 namespace IntegracaoApiNetCore6.Controllers
@@ -22,9 +23,19 @@ namespace IntegracaoApiNetCore6.Controllers
     [ApiController]
     public class VendaController : Controller
     {
+        //private readonly IVendaRepository _repository;
+        //public VendaController(IVendaRepository repository)
+        //{
+        //    _repository = repository ??
+        //     throw new ArgumentNullException(nameof(repository));
+        //}
 
         ProtonRetailView protonView = new ProtonRetailView(0);
-        
+        /// <summary>
+        /// Consulta venda do dia de hoje tanto no Retail quanto no servidor de loja e exibe a diferença entre os valores. Recebe o centro como parâmetro.
+        /// </summary>
+        /// <param name="centro"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("porcentro")]
         public VendaModel VendaPorCentro(int centro)
@@ -46,17 +57,42 @@ namespace IntegracaoApiNetCore6.Controllers
 
         [HttpGet]
         [Route("porCentroData")]
-        public VendaPorLojaModel VendaPorUF(int Centro, string DataInicial, string DataFinal)
+        public VendaPorLojaModel VendaPorCentroData(int Centro, string DataInicial, string DataFinal)
         {
 
 
-            protonView.VendaPorLoja(Centro, DataInicial, DataFinal);
+            protonView.VendaPorLoja(DataInicial, DataFinal);
             VendaPorLojaModel vendaPorLoja = protonView.listaVendaPorLoja.Where(n => n.Centro == Centro)
                                                 .Select(n => n).FirstOrDefault();
                                                 
 
 
             return vendaPorLoja;
+        }
+
+
+        [HttpGet]
+        [Route("geralPorData")]
+        public IActionResult GetGeralPorData(string DataInicial, string DataFinal)
+        {
+            protonView.VendaPorLoja(DataInicial, DataFinal);
+            return Ok(protonView.listaVendaPorLoja);
+        }
+
+        [HttpGet]
+        [Route("porUfData")]
+        public IActionResult GetPorUfData(string Uf, string DataInicial, string DataFinal)
+        {
+            protonView.VendaPorDataUf(DataInicial, DataFinal, Uf);
+            return Ok(protonView.listaVendaPorLoja);
+        }
+
+        [HttpGet]
+        [Route("porRegionalData")]
+        public IActionResult GetPorRegionalData(string Regional, string DataInicial, string DataFinal)
+        {
+            protonView.VendaPorDataRegional(DataInicial, DataFinal, Regional);
+            return Ok(protonView.listaVendaPorLoja);
         }
     }
 }
