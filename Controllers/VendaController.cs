@@ -23,19 +23,14 @@ namespace IntegracaoApiNetCore6.Controllers
     [ApiController]
     public class VendaController : Controller
     {
-        //private readonly IVendaRepository _repository;
-        //public VendaController(IVendaRepository repository)
-        //{
-        //    _repository = repository ??
-        //     throw new ArgumentNullException(nameof(repository));
-        //}
-
         ProtonRetailView protonView = new ProtonRetailView(0);
+
         /// <summary>
-        /// Consulta venda do dia de hoje tanto no Retail quanto no servidor de loja e exibe a diferença entre os valores. Recebe o centro como parâmetro.
+        /// sdfdsfsdfsdfsdfsdfdsfsdf
         /// </summary>
-        /// <param name="centro"></param>
-        /// <returns></returns>
+        /// <param name="centro">Centro a ser consultado</param>
+        /// <returns>JSON contendo Data e hora, centro, venda retail, venda no firebird e a diferença</returns>
+        /// <exception cref="System.Web.Http.HttpResponseException"></exception>
         [HttpGet]
         [Route("porcentro")]
         public VendaModel VendaPorCentro(int centro)

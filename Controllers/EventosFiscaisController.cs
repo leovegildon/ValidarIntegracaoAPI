@@ -24,9 +24,10 @@ namespace ValidarIntegracaoAPI.Controllers
         {
             return Enumerable.Range(1, 5).Select(index => new EventosFiscais
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+                Data = DateTime.Now,
+                Loja = "1006 - LB Bonoco",
+                eventosFirebird = 12546,
+                eventosRetail = 12546
             })
             .ToArray();
         }
