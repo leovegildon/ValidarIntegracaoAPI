@@ -1,21 +1,9 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net;
 using IntegracaoApiNetCore6.Models;
 using System.Data;
-using Oracle.ManagedDataAccess.Client;
-using FirebirdSql.Data.FirebirdClient;
 using Microsoft.AspNetCore.Mvc;
 using ValidarIntegracaoAPI;
 using ValidarIntegracaoAPI.Models;
-using System.Security.Cryptography.X509Certificates;
-//using System.Web.Http;
 
 namespace IntegracaoApiNetCore6.Controllers
 {
