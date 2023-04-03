@@ -11,7 +11,7 @@ namespace IntegracaoApiNetCore6.Controllers
     [ApiController]
     public class VendaController : Controller
     {
-        ProtonRetailView protonView = new ProtonRetailView(0);
+        ProtonRetailView protonView = new ProtonRetailView();
 
         /// <summary>
         /// sdfdsfsdfsdfsdfsdfdsfsdf

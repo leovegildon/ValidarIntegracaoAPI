@@ -11,6 +11,7 @@ namespace ValidarIntegracaoAPI
 {
     public class ProtonRetailView
     {
+        public ProtonRetailView() { }
         public ProtonRetailView(int CentroConsulta)
         {
             this.CentroConsulta = CentroConsulta;
