@@ -20,7 +20,7 @@ namespace IntegracaoApiNetCore6.Controllers
         /// <returns>JSON contendo Data e hora, centro, venda retail, venda no firebird e a diferença</returns>
         /// <exception cref="System.Web.Http.HttpResponseException"></exception>
         [HttpGet]
-        [Route("porcentro")]
+        [Route("FirebirdRetailporCentro")]
         public VendaModel VendaPorCentro(int centro)
         {
             protonView.VendaPorCentro(centro);
@@ -37,9 +37,17 @@ namespace IntegracaoApiNetCore6.Controllers
             return venda;
         }
 
+        [HttpGet]
+        [Route("FirebirdRetailGeralPorData")]
+        public IActionResult GetPorRegionalData(string DataInicial, string DataFinal)
+        {
+            protonView.VendaPorCentroGeral(DataInicial, DataFinal);
+            return Ok(protonView.listaVenda);
+        }
+
 
         [HttpGet]
-        [Route("porCentroData")]
+        [Route("RetailporCentroData")]
         public VendaPorLojaModel VendaPorCentroData(int Centro, string DataInicial, string DataFinal)
         {
 
@@ -54,8 +62,9 @@ namespace IntegracaoApiNetCore6.Controllers
         }
 
 
+
         [HttpGet]
-        [Route("geralPorData")]
+        [Route("RetailGeralPorData")]
         public IActionResult GetGeralPorData(string DataInicial, string DataFinal)
         {
             protonView.VendaPorLoja(DataInicial, DataFinal);
@@ -63,7 +72,7 @@ namespace IntegracaoApiNetCore6.Controllers
         }
 
         [HttpGet]
-        [Route("porUfData")]
+        [Route("RetailPorUfData")]
         public IActionResult GetPorUfData(string Uf, string DataInicial, string DataFinal)
         {
             protonView.VendaPorDataUf(DataInicial, DataFinal, Uf);
@@ -71,7 +80,7 @@ namespace IntegracaoApiNetCore6.Controllers
         }
 
         [HttpGet]
-        [Route("porRegionalData")]
+        [Route("RetailPorRegionalData")]
         public IActionResult GetPorRegionalData(string Regional, string DataInicial, string DataFinal)
         {
             protonView.VendaPorDataRegional(DataInicial, DataFinal, Regional);

@@ -13,9 +13,10 @@ namespace IntegracaoApiNetCore6.Models
         private string nomeCentro;
         private string data;
         private string diferenca;
+        private string excecao;
  
  
-        public VendaModel(int centro, string nomeCentro, string Data, string vendaRetail, string vendaFirebird, string diferenca)
+        public VendaModel(int centro, string nomeCentro, string Data, string vendaRetail, string vendaFirebird, string diferenca, string excecao)
         {
             this.Centro = centro;
             this.NomeCentro = nomeCentro;
@@ -23,6 +24,7 @@ namespace IntegracaoApiNetCore6.Models
             this.VendaRetail = vendaRetail;
             this.VendaFirebird = vendaFirebird;
             this.Diferenca = diferenca;
+            this.excecao = excecao;
         }
  
         public int Centro
@@ -98,8 +100,21 @@ namespace IntegracaoApiNetCore6.Models
                 diferenca = value;
             }
         }
- 
- 
+
+        public string Excecao
+        {
+            get
+            {
+                return excecao;
+            }
+
+            set
+            {
+                excecao = value;
+            }
+        }
+
+
     }
     
 }
