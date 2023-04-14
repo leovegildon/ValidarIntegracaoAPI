@@ -161,6 +161,7 @@ namespace ValidarIntegracaoAPI
             string centroOracle = "";
             decimal diferenca = 0;
             decimal VendaFireBird;
+            string excecao = "OK";
             string centro = "0", loja = "0", host_servidor = "0";
             List<string> Lojas = new List<string>();
             List<string> Centros = new List<string>();
@@ -196,10 +197,10 @@ namespace ValidarIntegracaoAPI
             conn1.Close();
 
             lojasArray = Lojas.ToArray();
-            //centrosArray = Centros.ToArray();
+            centrosArray = Centros.ToArray();
 
-            centrosArray[0] = "1006";
-            centrosArray[1] = "1010";
+            //centrosArray[0] = "1006";
+            //centrosArray[1] = "1010";
 
             //============================
             // INICIO DO LAÇO FOR
@@ -210,6 +211,8 @@ namespace ValidarIntegracaoAPI
                 valor = "0.00";
                 vendaOracle = "0.00";
                 diferenca = 0;
+                nomeCentro = "";
+                excecao = "OK";
                 //PEGANDO OS DADOS DAS LOJAS A SEREM CONSULTADAS
                 OracleConnection conn2 = new OracleConnection("Data Source=(DESCRIPTION="
                                             + "(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=" + localBanco + ")(PORT=1521)))"
@@ -236,7 +239,7 @@ namespace ValidarIntegracaoAPI
                     }
                     conn2.Close();
 
-
+                nomeCentro = centro + " - " + loja;
 
                 //CONSULTA NO ORACLE
                 OracleConnection conn = new OracleConnection("Data Source=(DESCRIPTION="
@@ -297,8 +300,9 @@ namespace ValidarIntegracaoAPI
 
                 dataIniFb = dataIni.Substring(0, 2) + "." + dataIni.Substring(2,2) + "." + dataIni.Substring(4,4);
                 dataFimFb = dataFim.Substring(0, 2) + "." + dataFim.Substring(2, 2) + "." + dataFim.Substring(4, 4);
-
-                FbConnection fbConn = new FbConnection("DataSource=" + host_servidor + "; Database=" + "C:\\proton\\pdv-server\\dat\\DBSRV.gdb" + "; User=SYSDBA; Password=masterkey; Connection lifetime=15");
+                try
+                {
+                    FbConnection fbConn = new FbConnection("DataSource=" + host_servidor + "; Database=" + "C:\\proton\\pdv-server\\dat\\DBSRV.gdb" + "; User=SYSDBA; Password=masterkey; Connection lifetime=15");
                     FbCommand cmd = new FbCommand();
                     fbConn.Open();
                     cmd.Connection = fbConn;
@@ -329,7 +333,12 @@ namespace ValidarIntegracaoAPI
                     fbConn.Close();
                     diferenca = Convert.ToDecimal(vendaFirebird) - Convert.ToDecimal(vendaOracle);
 
-                fbConn.Close();
+                    fbConn.Close();
+                }
+                catch(Exception exFb)
+                {
+                    excecao = exFb.Message;
+                }
                 listaVenda.Add(new VendaModel(0, "", "", "", "", "", "") 
                 { 
                     Centro = Convert.ToInt32(centro), 
@@ -337,7 +346,8 @@ namespace ValidarIntegracaoAPI
                     Data = DateTime.Now.ToString(), 
                     VendaRetail = vendaOracle, 
                     VendaFirebird = vendaFirebird, 
-                    Diferenca = diferenca.ToString() 
+                    Diferenca = diferenca.ToString(),
+                    Excecao = excecao
                 });
 
             }//Fim For
